@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>One Dance Invitation</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <canvas id="ambientCanvas" aria-hidden="true"></canvas>
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+    <main class="app-shell">
+      <section class="invite" aria-live="polite">
+        <div class="anniversary-mark" aria-hidden="true">22</div>
+
+        <div id="questionPanel" class="question-panel">
+          <p class="eyebrow">22 years, one little wish</p>
+          <h1>May I have one dance with you?</h1>
+          <p class="note">
+            Our company is turning 22, and the celebration would feel a little brighter with you on the dance floor.
+          </p>
+
+          <div id="choiceField" class="choice-field">
+            <button id="yesButton" class="choice-button primary" type="button">
+              Yes
+            </button>
+            <button id="noButton" class="choice-button secondary" type="button">
+              No
+            </button>
+          </div>
+
+          <p id="statusLine" class="status-line" role="status">
+            Choose wisely.
+          </p>
+        </div>
+
+        <div id="successPanel" class="success-panel" hidden tabindex="-1">
+          <p class="eyebrow">The dance is accepted</p>
+          <h2>click to open your surprize</h2>
+
+          <button id="surpriseButton" class="surprise-button" type="button">
+            Open surprize
+          </button>
+
+          <div id="surpriseMessage" class="surprise-message" hidden tabindex="-1">
+            congratulations you received 2x abalochka and your present will be delivered on 5th october 8:00 am
+          </div>
+
+          <button id="replayButton" class="replay-button" type="button">
+            Replay
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
