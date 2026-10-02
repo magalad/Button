@@ -208,6 +208,19 @@ h1 {
   font-size: 4.5rem;
 }
 
+.dear-line {
+  display: block;
+  margin: 0 0 14px 4px;
+  color: var(--teal);
+  font-size: 1.36rem;
+  font-weight: 850;
+  line-height: 1.22;
+}
+
+.question-line {
+  display: block;
+}
+
 h2 {
   font-size: 3.55rem;
 }
@@ -428,6 +441,11 @@ body[data-state="success"] .anniversary-mark {
     font-size: 3rem;
   }
 
+  .dear-line {
+    margin-bottom: 10px;
+    font-size: 1.08rem;
+  }
+
   h2 {
     font-size: 2.48rem;
   }
@@ -469,6 +487,10 @@ body[data-state="success"] .anniversary-mark {
 
   h1 {
     font-size: 2.42rem;
+  }
+
+  .dear-line {
+    font-size: 1rem;
   }
 
   h2 {
