@@ -7,6 +7,7 @@ const surpriseButton = document.querySelector("#surpriseButton");
 const replayButton = document.querySelector("#replayButton");
 const statusLine = document.querySelector("#statusLine");
 const surpriseMessage = document.querySelector("#surpriseMessage");
+const danceFrame = document.querySelector("#danceFrame");
 const ambientCanvas = document.querySelector("#ambientCanvas");
 const confettiCanvas = document.querySelector("#confettiCanvas");
 
@@ -37,11 +38,16 @@ const minNoScale = 0.34;
 const maxYesScale = 1.72;
 const noShrinkStep = 0.075;
 const yesGrowStep = 0.085;
+const danceFrameCount = 96;
+const danceFrameDelay = 83;
 
 let noAttempts = 0;
 let confettiPieces = [];
 let confettiAnimation = null;
 let ambientShapes = [];
+let danceFrameIndex = 0;
+let danceFrameTimer = null;
+let danceFramesPreloaded = false;
 
 function randomBetween(min, max) {
   return min + Math.random() * (max - min);
@@ -129,6 +135,57 @@ function dodgeNoButton(event) {
   moveNoButton();
 }
 
+function getDanceFrameSource(index) {
+  return `./assets/dance-frames/frame-${String(index).padStart(3, "0")}.png`;
+}
+
+function preloadDanceFrames() {
+  if (danceFramesPreloaded) {
+    return;
+  }
+
+  for (let index = 0; index < danceFrameCount; index += 1) {
+    const image = new Image();
+    image.src = getDanceFrameSource(index);
+  }
+
+  danceFramesPreloaded = true;
+}
+
+function showDanceFrame(index) {
+  if (!danceFrame) {
+    return;
+  }
+
+  danceFrame.src = getDanceFrameSource(index);
+}
+
+function stopDanceAnimation() {
+  if (danceFrameTimer) {
+    window.clearInterval(danceFrameTimer);
+    danceFrameTimer = null;
+  }
+
+  danceFrameIndex = 0;
+  showDanceFrame(danceFrameIndex);
+}
+
+function startDanceAnimation() {
+  stopDanceAnimation();
+  preloadDanceFrames();
+  showDanceFrame(danceFrameIndex);
+
+  danceFrameTimer = window.setInterval(() => {
+    if (document.body.dataset.state !== "success") {
+      stopDanceAnimation();
+      return;
+    }
+
+    danceFrameIndex = (danceFrameIndex + 1) % danceFrameCount;
+    showDanceFrame(danceFrameIndex);
+  }, danceFrameDelay);
+}
+
 function resetExperience() {
   document.body.dataset.state = "asking";
   noAttempts = 0;
@@ -141,6 +198,7 @@ function resetExperience() {
   yesButton.style.setProperty("--yes-scale", "1");
   questionPanel.hidden = false;
   successPanel.hidden = true;
+  stopDanceAnimation();
   window.requestAnimationFrame(moveNoButton);
   yesButton.focus({ preventScroll: true });
 }
@@ -153,6 +211,7 @@ function celebrate() {
   surpriseButton.hidden = false;
   successPanel.focus({ preventScroll: true });
   surpriseButton.focus({ preventScroll: true });
+  startDanceAnimation();
   launchConfetti(220);
 }
 

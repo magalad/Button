@@ -68,6 +68,45 @@ button {
   padding: 28px;
 }
 
+.dance-couple {
+  position: absolute;
+  right: clamp(18px, 4vw, 44px);
+  bottom: 18px;
+  z-index: 1;
+  display: none;
+  width: min(258px, 34%);
+  opacity: 0.97;
+  pointer-events: none;
+  transform-origin: 50% 88%;
+  animation: slowDanceImage 8.4s ease-in-out infinite;
+  filter: drop-shadow(0 28px 34px rgba(3, 2, 16, 0.38));
+}
+
+body[data-state="success"] .dance-couple {
+  display: block;
+}
+
+.dance-couple::before {
+  position: absolute;
+  right: 9%;
+  bottom: 1%;
+  width: 78%;
+  height: 12%;
+  border-radius: 50%;
+  content: "";
+  background: radial-gradient(ellipse, rgba(255, 209, 102, 0.26), transparent 68%);
+  transform: rotate(-2deg);
+}
+
+.dance-frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 306 / 460;
+  border-radius: 8px;
+}
+
 .invite {
   position: relative;
   width: min(820px, 100%);
@@ -338,6 +377,17 @@ body[data-state="success"] .anniversary-mark {
   }
 }
 
+@keyframes slowDanceImage {
+  0%,
+  100% {
+    transform: translateX(-3px) rotate(-1deg) scale(0.995);
+  }
+
+  50% {
+    transform: translateX(4px) rotate(1deg) scale(1.01);
+  }
+}
+
 @media (max-width: 720px) {
   .app-shell {
     padding: 18px;
@@ -406,6 +456,12 @@ body[data-state="success"] .anniversary-mark {
   }
 }
 
+@media (max-width: 980px) {
+  .dance-couple {
+    display: none;
+  }
+}
+
 @media (max-width: 410px) {
   .invite {
     padding-inline: 18px;
@@ -436,5 +492,9 @@ body[data-state="success"] .anniversary-mark {
     transition-duration: 1ms !important;
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .dance-couple {
+    display: none;
   }
 }
